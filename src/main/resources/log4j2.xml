@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR" monitorInterval="5">
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT" >
+            <!--<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %l - %msg%n" />-->
+            <!--<PatternLayout pattern="%c %l - %msg%n" />-->
+        </Console>
+        <Console name="utilsAppender" target="SYSTEM_OUT" >
+            <!--<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %l - %msg%n" />-->
+            <PatternLayout pattern="%msg%n" />
+        </Console>
+        <!-- %c is logger name, %l is location (sha.App.go(App.java:17)) %L is line number-->
+        <!--<Socket name="socket" host="localhost" port="4445">-->
+        <!--<SerializedLayout />-->
+        <!--</Socket>-->
+        <RollingFile name="RollingFile" fileName="logging.log"
+                     filePattern="app-%i.log" bufferedIO="true" bufferSize="1024000" immediateFlush="false">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 GB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="error">
+            <AppenderRef ref="CONSOLE" />
+            <!--<AppenderRef ref="RollingFile" />-->
+        </Root>
+
+        <Logger name="sha" level="all"/>
+    </Loggers>
+</Configuration>
